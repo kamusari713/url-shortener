@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # compiled output
 /dist
 /node_modules
@@ -55,6 +56,11 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+=======
+dist
+node_modules
+.env
+>>>>>>> 4a40b2c (feat: initial working version)
 =======
 dist
 node_modules

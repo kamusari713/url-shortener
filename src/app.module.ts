@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -8,6 +9,8 @@ import { AppService } from './app.service';
   controllers: [AppController],
   providers: [AppService],
 =======
+=======
+>>>>>>> 4a40b2c (feat: initial working version)
 import { Module } from "@nestjs/common"
 import { ConfigModule, ConfigService } from "@nestjs/config"
 import { MongooseModule } from "@nestjs/mongoose"
@@ -29,6 +32,9 @@ import { MetricModule } from "./user-analytics/user-analytics.module"
     UrlsHandleModule,
     MetricModule,
   ],
+<<<<<<< HEAD
+>>>>>>> 4a40b2c (feat: initial working version)
+=======
 >>>>>>> 4a40b2c (feat: initial working version)
 })
 export class AppModule {}
