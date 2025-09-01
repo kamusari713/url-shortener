@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
-}
-bootstrap();
-=======
-=======
->>>>>>> 4a40b2c (feat: initial working version)
 import { ValidationPipe } from "@nestjs/common"
 import { NestFactory } from "@nestjs/core"
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
@@ -32,7 +19,3 @@ async function bootstrap() {
   await app.listen(3000)
 }
 bootstrap()
-<<<<<<< HEAD
->>>>>>> 4a40b2c (feat: initial working version)
-=======
->>>>>>> 4a40b2c (feat: initial working version)
