@@ -1,23 +1,20 @@
-import { Module } from "@nestjs/common"
-import { ConfigModule, ConfigService } from "@nestjs/config"
-import { MongooseModule } from "@nestjs/mongoose"
-import { AuthModule } from "./auth/auth.module"
-import { UrlsHandleModule } from "./urls-handle/urls-handle.module"
-import { MetricModule } from "./user-analytics/user-analytics.module"
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseConfigService } from './database/mongoose-config.service';
+import { AuthModule } from './modules/auth/auth.module';
+import { UrlsHandleModule } from './modules/urls-handle/urls-handle.module';
+import { UserAnalyticsModule } from './modules/user-analytics/user-analytics.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>("DB_URI"),
-      }),
-      inject: [ConfigService],
+      useClass: MongooseConfigService,
     }),
     AuthModule,
     UrlsHandleModule,
-    MetricModule,
+    UserAnalyticsModule,
   ],
 })
 export class AppModule {}

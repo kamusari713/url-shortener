@@ -1,21 +1,9 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
+  "semi": true,
   "singleQuote": true,
-  "trailingComma": "all"
-=======
-=======
->>>>>>> 4a40b2c (feat: initial working version)
-  "$schema": "https://json.schemastore.org/prettierrc",
-  "semi": false,
-  "singleQuote": false,
   "trailingComma": "all",
   "printWidth": 80,
   "tabWidth": 2,
   "bracketSpacing": true,
   "arrowParens": "always"
-<<<<<<< HEAD
->>>>>>> 4a40b2c (feat: initial working version)
-=======
->>>>>>> 4a40b2c (feat: initial working version)
 }
