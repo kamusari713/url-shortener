@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { createHash } from 'crypto';
 import { AuthInputDto } from './dto/auth-input.dto';
@@ -56,13 +60,10 @@ export class AuthService {
 
   async register(authInputDto: AuthInputDto): Promise<UserDocument> {
     const user = await this.verifyUser(authInputDto);
-    if (user) {
-      throw new BadRequestException();
-    }
 
-    authInputDto.password = createHash('sha256')
-      .update(authInputDto.password)
-      .digest('hex');
+    if (user) {
+      throw new ConflictException('Email already in use');
+    }
 
     return this.userRepo.create(authInputDto);
   }
