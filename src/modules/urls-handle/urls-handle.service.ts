@@ -1,14 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { createHash } from 'crypto';
 import { RequestMetricsDto } from './dto/request-metric.dto';
+import { UrlMetricRepository } from './repositories/url-metric.repository';
 import { UrlRepository } from './repositories/url.repository';
 import { returnHashLink } from './utils/return-hash-link.util';
-import { createHash } from 'crypto';
+
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UrlsHandleService {
   constructor(
     private readonly urlRepo: UrlRepository,
+    private readonly urlMetricRepo: UrlMetricRepository,
     private readonly configService: ConfigService,
   ) {}
 
@@ -42,8 +45,7 @@ export class UrlsHandleService {
   ): Promise<string> {
     const url = await this.urlRepo.findByHash(hash);
 
-    url.metrics.push(requestMetrics);
-    await this.urlRepo.findByHashAndUpdate(hash, url);
+    await this.urlMetricRepo.create(hash, requestMetrics);
 
     return url.origin;
   }

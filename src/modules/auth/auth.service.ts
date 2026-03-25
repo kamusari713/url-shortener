@@ -1,3 +1,9 @@
+import { AuthInputDto } from './dto/auth-input.dto';
+import { AuthOutputDto } from './dto/auth-output.dto';
+import { SignInDto } from './dto/sign-in.dto';
+import { UserRepository } from './repositories/user.repository';
+import { UserDocument } from './schemas/user.schema';
+
 import {
   BadRequestException,
   ConflictException,
@@ -5,11 +11,6 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { createHash } from 'crypto';
-import { AuthInputDto } from './dto/auth-input.dto';
-import { AuthOutputDto } from './dto/auth-output.dto';
-import { SignInDto } from './dto/sign-in.dto';
-import { UserRepository } from './repositories/user.repository';
-import { UserDocument } from './schemas/user.schema';
 
 @Injectable()
 export class AuthService {

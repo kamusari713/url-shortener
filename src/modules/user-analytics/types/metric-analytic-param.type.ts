@@ -1,3 +1,8 @@
-import { Metric } from 'src/modules/urls-handle/types/metric.type';
-
-export type MetricAnalyticParam = keyof Omit<Metric, 'createdAt'>;
+export type MetricAnalyticParam =
+  | 'browser'
+  | 'os'
+  | 'ip'
+  | 'country'
+  | 'region'
+  | 'city'
+  | 'timezone';

@@ -13,8 +13,8 @@ export class UrlRepository {
   ): Promise<UrlDocument> {
     const url = await this.urlModel
       .findOne({
-        origin: origin,
-        username: username,
+        origin,
+        username,
       })
       .exec();
 
@@ -26,7 +26,7 @@ export class UrlRepository {
   }
 
   async findByHash(hash: string): Promise<UrlDocument> {
-    const url = await this.urlModel.findOne({ hash: hash }).exec();
+    const url = await this.urlModel.findOne({ hash }).exec();
 
     if (!url) {
       throw new NotFoundException();
@@ -35,12 +35,8 @@ export class UrlRepository {
     return this.verifyUrl(url);
   }
 
-  async findByHashAndUpdate(hash: string, url: UrlDocument): Promise<void> {
-    await this.urlModel.findOneAndUpdate({ hash: hash }, url).exec();
-  }
-
   async findByUsername(username: string): Promise<UrlDocument[]> {
-    const urls = await this.urlModel.find({ username: username });
+    const urls = await this.urlModel.find({ username });
 
     if (!urls || !urls.length) {
       throw new NotFoundException();
@@ -54,31 +50,26 @@ export class UrlRepository {
     hash: string,
     username: string,
     lifetime?: string,
-  ) {
-    const createdAt = Date.now();
-    let expiredAt = 0;
-    if (lifetime) {
-      expiredAt = createdAt + +lifetime * 1000;
-    }
+  ): Promise<UrlDocument> {
+    const createdAt = new Date();
+    const expiredAt = lifetime
+      ? new Date(createdAt.getTime() + +lifetime * 1000)
+      : new Date(0);
 
-    const newUrlEntity = {
-      username: username,
-      origin: origin,
-      hash: hash,
-      createdAt: new Date(createdAt),
-      expiredAt: new Date(expiredAt),
-    };
-
-    const createdUrl = await this.urlModel.create(newUrlEntity);
-    return createdUrl.save();
+    return this.urlModel.create({
+      username,
+      origin,
+      hash,
+      createdAt,
+      expiredAt,
+    });
   }
 
-  private async verifyUrl(url: UrlDocument): Promise<UrlDocument> {
-    if (url.expiredAt.getTime() != 0 && Date.now() > url.expiredAt.getTime()) {
-      return url;
-    } else {
-      await this.urlModel.findOneAndDelete({ hash: url.hash }).exec();
+  private verifyUrl(url: UrlDocument): UrlDocument {
+    if (url.expiredAt.getTime() !== 0 && Date.now() > url.expiredAt.getTime()) {
+      this.urlModel.findOneAndDelete({ hash: url.hash }).exec();
       throw new NotFoundException();
     }
+    return url;
   }
 }

@@ -1,9 +1,10 @@
+import { AuthInputDto } from '../dto/auth-input.dto';
+import { User, UserDocument } from '../schemas/user.schema';
+
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { createHash } from 'crypto';
 import { Model } from 'mongoose';
-import { AuthInputDto } from '../dto/auth-input.dto';
-import { User, UserDocument } from '../schemas/user.schema';
 
 @Injectable()
 export class UserRepository {

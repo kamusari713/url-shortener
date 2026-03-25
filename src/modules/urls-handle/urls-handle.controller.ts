@@ -1,3 +1,12 @@
+import { User } from 'src/modules/auth/decorators/user.decorator';
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+import type { Request } from 'src/modules/auth/types/request.type';
+import { TokenPayload } from 'src/modules/auth/types/token-payload.type';
+import { AddOriginDto } from './dto/add-origin.dto';
+import { UrlQueriesDto } from './dto/url-queries.dto';
+import { UrlsHandleService } from './urls-handle.service';
+import { parseRequest } from './utils/parse-request.util';
+
 import {
   Body,
   Controller,
@@ -10,14 +19,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import type { Response } from 'express';
-import { User } from 'src/modules/auth/decorators/user.decorator';
-import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
-import { TokenPayload } from 'src/modules/auth/types/token-payload.type';
-import type { Request } from 'src/modules/auth/types/request.type';
-import { AddOriginDto } from './dto/add-origin.dto';
-import { UrlQueriesDto } from './dto/url-queries.dto';
-import { UrlsHandleService } from './urls-handle.service';
-import { parseRequest } from './utils/parse-request.util';
 
 @Controller('urls')
 export class UrlsHandleController {
